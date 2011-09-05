@@ -1,0 +1,21 @@
+% usage: gs -dNODISPLAY -q -sFile=____.pdf pdf_info.ps
+
+/File where not {
+  (\n   *** Missing input file name \(use -sFile=____.pdf\)\n) =
+  (    usage: gs -dNODISPLAY -q -sFile=____.pdf [ options ] toolbin/pdf_info.ps\n) =
+  () =
+  flush
+  quit
+} if
+pop      % discard the dict from where
+
+/QUIET true def    % in case they forgot
+
+() =
+File dup (r) file runpdfbegin
+/PDFPageCount pdfpagecount def
+ PDFPageCount =print () =
+flush
+() =
+
+quit
