@@ -41,7 +41,6 @@ module Slite
     # => 4
     #
     def page_count
-      puts @path
       @page_count ||= begin
         `gs -dNODISPLAY -q -sFile=#{@path} ./lib/pdf_info.ps`.to_i
       end
