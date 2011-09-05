@@ -1,0 +1,17 @@
+h1. Slite
+
+Slite is a simple gem for extracting slides (aka pages) and text from PDF's. It basically gives you an easy to use api to ghostscript and imagemagick specific to this use case.
+
+h2. Prerequisites
+
+You will need ghostscript and imagemagick installed. On the Mac (OSX) I highly recommend using "Homebrew":http://mxcl.github.com/homebrew/ to get them installed, its as simple as "brew install ghostscript" and "brew install imagemagick".
+
+h2. Usage
+
+<pre><code>
+  instance    = Slite.new("/path/to/pdf")
+  slide_count = instance.slide_count                            # returns the number of slides in the pdf, 1 indexed
+  png         = instance.slide(1).to_png                        # returns png as tempfile instance
+  jpeg        = instance.slide(2).to_jpeg("/path/to/save/jpeg") # saves jpeg to path and returns file instance
+  text        = instance.slide(3).text                          # returns text as a string
+</pre></code>
