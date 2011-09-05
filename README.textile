@@ -11,7 +11,7 @@ h2. Usage
 <pre><code>
   instance    = Slite::Pdf.new("/path/to/pdf")
   page_count  = instance.page_count                            # returns the number of pages in the pdf
-  png         = instance.page(1).to_png                        # returns png as tempfile instance
-  jpeg        = instance.page(2).to_jpeg("/path/to/save/jpeg") # saves jpeg to path and returns file instance
-  text        = instance.page(3).text                          # returns text as a string
+  png  = instance.page(1).to_image("/path/to/save/image.png")  # saves png to path and returns File instance
+  jpeg = instance.page(2).to_image("/path/to/save/image.jpeg") # saves jpeg to path and returns File instance
+  text = instance.page(3).text                                 # returns text as a string
 </pre></code>
