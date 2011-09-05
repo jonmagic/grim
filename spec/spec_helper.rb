@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 
-require 'slite'
+require 'grim'
 
 RSpec.configure do |config|
   def fixture_path(name)

@@ -1,37 +1,37 @@
 require 'fileutils'
 require 'spec_helper'
 
-describe Slite do
+describe Grim do
   after(:all) do
     FileUtils.rm_rf(tmp_dir)
   end
 
   it "should have a VERSION constant" do
-    Slite.const_defined?('VERSION').should be_true
+    Grim.const_defined?('VERSION').should be_true
   end
 
   describe "Pdf" do
     describe "#initialize" do
       it "should raise an error if pdf does not exist" do
-        lambda { Slite::Pdf.new(fixture_path("booboo.pdf")) }.should raise_error(Slite::PdfNotFound)
+        lambda { Grim.new(fixture_path("booboo.pdf")) }.should raise_error(Grim::PdfNotFound)
       end
     end
 
     describe "#page_count" do
       it "should return an integer" do
-        instance = Slite::Pdf.new(fixture_path("smoker.pdf"))
+        instance = Grim.new(fixture_path("smoker.pdf"))
         instance.page_count.should == 25
       end
     end
 
     describe "#page" do
       it "should be set to 1 by default" do
-        instance = Slite::Pdf.new(fixture_path("smoker.pdf"))
+        instance = Grim.new(fixture_path("smoker.pdf"))
         instance.page_number.should == 1
       end
 
       it "should set page attribute and return instance" do
-        instance = Slite::Pdf.new(fixture_path("smoker.pdf"))
+        instance = Grim.new(fixture_path("smoker.pdf"))
         instance.page(2).should == instance
         instance.page_number.should == 2
       end
@@ -39,7 +39,7 @@ describe Slite do
 
     describe "#index" do
       it "should return page minus 1" do
-        instance = Slite::Pdf.new(fixture_path("smoker.pdf"))
+        instance = Grim.new(fixture_path("smoker.pdf"))
         instance.page(2)
         instance.index.should == 1
       end
@@ -48,7 +48,7 @@ describe Slite do
     describe "#to_image" do
       describe "output png" do
         before(:all) do
-          instance = Slite::Pdf.new(fixture_path("smoker.pdf"))
+          instance = Grim.new(fixture_path("smoker.pdf"))
           @png = instance.to_image(tmp_path("to_png_spec.png"))
         end
 
@@ -67,7 +67,7 @@ describe Slite do
 
       describe "output jpeg" do
         before(:all) do
-          instance = Slite::Pdf.new(fixture_path("smoker.pdf"))
+          instance = Grim.new(fixture_path("smoker.pdf"))
           @jpeg = instance.to_image(tmp_path("to_jpeg_spec.jpeg"))
         end
 
@@ -87,7 +87,7 @@ describe Slite do
 
     describe "#text" do
       it "should return the text from the selected page" do
-        instance = Slite::Pdf.new(fixture_path("smoker.pdf"))
+        instance = Grim.new(fixture_path("smoker.pdf"))
         instance.page(2).text.should == "Step 1: get someone to print this curve for you to scale, 72\342\200\235 wide\n\nStep 2: Get a couple 55 gallon drums\n\n\f"
       end
     end

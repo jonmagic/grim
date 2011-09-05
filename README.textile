@@ -1,15 +1,15 @@
-h1. Slite
+h1. Grim
 
-Slite is a simple gem for extracting pages and text from PDF's. It basically gives you an easy to use api to ghostscript and imagemagick specific to this use case.
+Grim is a simple gem for extracting a page from a pdf and converting it to an image as well as extract the text from the page as a string. It basically gives you an easy to use api to ghostscript, imagemagick, and pdftotext specific to this use case.
 
 h2. Prerequisites
 
-You will need ghostscript and imagemagick installed. On the Mac (OSX) I highly recommend using "Homebrew":http://mxcl.github.com/homebrew/ to get them installed, its as simple as "brew install ghostscript" and "brew install imagemagick".
+You will need ghostscript, imagemagick, and xpdf installed. On the Mac (OSX) I highly recommend using "Homebrew":http://mxcl.github.com/homebrew/ to get them installed, its as simple as "brew install ghostscript", "brew install imagemagick", and "brew install xpdf".
 
 h2. Usage
 
 <pre><code>
-  instance    = Slite::Pdf.new("/path/to/pdf")
+  instance    = Grim.new("/path/to/pdf")
   page_count  = instance.page_count                            # returns the number of pages in the pdf
   png  = instance.page(1).to_image("/path/to/save/image.png")  # saves png to path and returns File instance
   jpeg = instance.page(2).to_image("/path/to/save/image.jpeg") # saves jpeg to path and returns File instance
