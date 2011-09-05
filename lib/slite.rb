@@ -93,5 +93,17 @@ module Slite
       file.rewind
       file
     end
+
+    # text is an instance method that extracts the text from the selected page.
+    #
+    # For example:
+    #
+    #    instance.page(2).text
+    # => "This is text from slide 2.\n\nAnd even more text from slide 2."
+    #
+    # Returns a string
+    def text
+      `pdftotext -enc UTF-8 -f #{@page_number} -l #{@page_number} #{@path} -`
+    end
   end
 end

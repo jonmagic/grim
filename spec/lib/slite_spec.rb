@@ -84,5 +84,12 @@ describe Slite do
         end
       end
     end
+
+    describe "#text" do
+      it "should return the text from the selected page" do
+        instance = Slite::Pdf.new(fixture_path("smoker.pdf"))
+        instance.page(2).text.should == "Step 1: get someone to print this curve for you to scale, 72\342\200\235 wide\n\nStep 2: Get a couple 55 gallon drums\n\n\f"
+      end
+    end
   end
 end
