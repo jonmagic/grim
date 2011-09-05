@@ -18,11 +18,11 @@ module Slite
   #
   # For example:
   #
-  #   instance    = Slite::Pdf.new("/path/to/pdf")
-  #   page_count  = instance.page_count
-  #   png         = instance.page(1).to_png
-  #   jpeg        = instance.page(2).to_jpeg("/path/to/save/jpeg")
-  #   text        = instance.page(3).text
+  #    instance    = Slite::Pdf.new("/path/to/pdf")
+  #    page_count  = instance.page_count
+  #    png         = instance.page(1).to_png
+  #    jpeg        = instance.page(2).to_jpeg("/path/to/save/jpeg")
+  #    text        = instance.page(3).text
   #
   class Pdf
     # initialize is called when a new instance is created and accepts path.
@@ -37,8 +37,8 @@ module Slite
     #
     # For example:
     #
-    #   instance.page_count
-    #   => 4
+    #    instance.page_count
+    # => 4
     #
     def page_count
       puts @path
