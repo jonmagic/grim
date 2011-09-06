@@ -4,16 +4,26 @@ Grim is a simple gem for extracting (reaping) a page from a pdf and converting i
 
 h2. Prerequisites
 
-You will need ghostscript, imagemagick, and xpdf installed. On the Mac (OSX) I highly recommend using "Homebrew":http://mxcl.github.com/homebrew/ to get them installed, its as simple as "brew install ghostscript imagemagick xpdf".
+You will need ghostscript, imagemagick, and xpdf installed. On the Mac (OSX) I highly recommend using "Homebrew":http://mxcl.github.com/homebrew/ to get them installed.
+
+<pre><code>
+  brew install ghostscript imagemagick xpdf
+</code></pre>
+
+h2. Installation
+
+<pre><code>
+  gem install grim
+</code></pre>
 
 h2. Usage
 
 <pre><code>
-  instance    = Grim.new("/path/to/pdf")
-  page_count  = instance.page_count                            # returns the number of pages in the pdf
-  png  = instance.page(1).to_image("/path/to/save/image.png")  # saves png to path and returns File instance
-  jpeg = instance.page(2).to_image("/path/to/save/image.jpeg") # saves jpeg to path and returns File instance
-  text = instance.page(3).text                                 # returns text as a string
+  pdf   = Grim.new("/path/to/pdf")
+  count = pdf.count                # returns the number of pages in the pdf
+  png   = pdf[1].png               # returns png as Tempfile instance
+  jpeg  = pdf[2].jpeg("/path/...") # saves jpeg to path and returns File instance
+  text  = pdf[3].text              # returns text as a String
 </pre></code>
 
 h2. License
