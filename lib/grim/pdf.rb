@@ -6,6 +6,7 @@ module Grim
     # variables if pdf is found.
     #
     # path - A String or Path to the pdf
+    #
     def initialize(path)
       raise Grim::PdfNotFound unless File.exists?(path)
       @path = path
@@ -20,6 +21,7 @@ module Grim
     #   # => 4
     #
     # Returns an Integer.
+    #
     def count
       @count ||= begin
         `gs -dNODISPLAY -q -sFile=#{@path} ./lib/pdf_info.ps`.to_i

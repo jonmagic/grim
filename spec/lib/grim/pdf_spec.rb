@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Grim::Pdf do
   describe "#initialize" do
     it "should raise an error if pdf does not exist" do
-      lambda { Grim.new(fixture_path("booboo.pdf")) }.should raise_error(Grim::PdfNotFound)
+      lambda { Grim::Pdf.new(fixture_path("booboo.pdf")) }.should raise_error(Grim::PdfNotFound)
     end
 
     it "should set path on pdf" do

@@ -19,7 +19,7 @@ describe Grim do
 
   describe "#new" do
     it "should return an instance of Grim::Pdf" do
-      Grim.new(fixture_path("smoker.pdf")).class.should == Grim::Pdf
+      Grim.reap(fixture_path("smoker.pdf")).class.should == Grim::Pdf
     end
   end
 end

@@ -1,5 +1,6 @@
 module Grim
   class Page
+
     # Sets up some instance variables on new instance.
     #
     # pdf - the pdf this page belongs to
@@ -14,29 +15,29 @@ module Grim
     # Extracts the selected page and turns it into an image.
     # Tested on png and jpeg.
     #
-    # path - A String or Path to save image to
+    # path - String of the path to save to
     #
     # For example:
     #
-    #   instance.page(2).image(/path/to/save/image)
-    #   # => File
+    #   pdf[1].save(/path/to/save/image.png)
+    #   # => true
     #
     # Returns a File.
-    def image(path)
+    #
+    def save(path)
       `convert -resize #{Grim::WIDTH} -antialias -render -quality #{Grim::QUALITY} -colorspace RGB -interlace none -density #{Grim::DENSITY} #{@pdf.path}[#{@index}] #{path}`
-      file = File.open(path)
-      file.rewind
-      file
+      File.exists?(path)
     end
 
     # Extracts the text from the selected page.
     #
     # For example:
     #
-    #   instance.page(2).text
+    #   pdf[1].text
     #   # => "This is text from slide 2.\n\nAnd even more text from slide 2."
     #
     # Returns a String.
+    #
     def text
       `pdftotext -enc UTF-8 -f #{@page} -l #{@page} #{@pdf.path} -`
     end

@@ -1,14 +1,3 @@
-# Grim is a class with instance methods for getting number of pages in a pdf,
-# extracting a page as an image, and extracting the text from a page.
-#
-# For example:
-#
-#    pdf    = Grim.new("/path/to/pdf")
-#    count  = pdf.count
-#    png    = pdf[1].image("/path/to/save/image.png")
-#    jpeg   = pdf[2].image("/path/to/save/image.jpeg")
-#    text   = pdf[3].text
-#
 module Grim
   # VERSION
   VERSION = "0.1.0"
@@ -40,11 +29,11 @@ module Grim
   #
   # For example:
   #
-  #   pdf = Grim.new(/path/to/pdf)
+  #   pdf = Grim.reap(/path/to/pdf)
   #
   # Returns an instance of Grim::Pdf
   #
-  def self.new(path)
+  def self.reap(path)
     Grim::Pdf.new(path)
   end
 end

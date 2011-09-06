@@ -19,11 +19,10 @@ h2. Installation
 h2. Usage
 
 <pre><code>
-  pdf   = Grim.new("/path/to/pdf")
-  count = pdf.count                # returns the number of pages in the pdf
-  png   = pdf[1].png               # returns png as Tempfile instance
-  jpeg  = pdf[2].jpeg("/path/...") # saves jpeg to path and returns File instance
-  text  = pdf[3].text              # returns text as a String
+  pdf   = Grim.reap("/path/to/pdf")         # returns Grim::Pdf instance for pdf
+  count = pdf.count                         # returns the number of pages in the pdf
+  png   = pdf[3].save('/path/to/image.png') # will return true if page was saved or false if not
+  text  = pdf[3].text                       # returns text as a String
 </pre></code>
 
 h2. License
