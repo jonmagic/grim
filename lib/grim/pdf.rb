@@ -1,7 +1,8 @@
 module Grim
   class Pdf
-    attr_accessor :path
     include Enumerable
+
+    attr_reader :path
 
     # ghostscript prints out a warning, this regex matches it
     WarningRegex = /\*\*\*\*.*\n/
