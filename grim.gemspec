@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.description = %q{Grim is a simple gem for extracting a page from a pdf and converting it to an image as well as extract the text from the page as a string. It basically gives you an easy to use api to ghostscript, imagemagick, and pdftotext specific to this use case.}
 
   s.rubyforge_project = "grim"
+  s.add_dependency 'safe_shell', '~> 1.0.0'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

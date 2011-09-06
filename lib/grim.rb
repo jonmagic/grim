@@ -1,3 +1,5 @@
+require 'safe_shell'
+
 module Grim
   # VERSION
   VERSION = "0.1.0"

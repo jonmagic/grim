@@ -2,6 +2,9 @@ module Grim
   class Pdf
     attr_accessor :path
 
+    # ghostscript prints out a warning, this regex matches it
+    WarningRegex = /\*\*\*\*.*\n/
+
     # Raises an error if pdf not found and sets some instance
     # variables if pdf is found.
     #
@@ -24,7 +27,9 @@ module Grim
     #
     def count
       @count ||= begin
-        `gs -dNODISPLAY -q -sFile=#{@path} ./lib/pdf_info.ps`.to_i
+        result = SafeShell.execute("gs", "-dNODISPLAY", "-q", "-sFile=#{@path}", "./lib/pdf_info.ps")
+
+        result.gsub(WarningRegex, '').to_i
       end
     end
 

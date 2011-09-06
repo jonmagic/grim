@@ -25,7 +25,10 @@ module Grim
     # Returns a File.
     #
     def save(path)
-      `convert -resize #{Grim::WIDTH} -antialias -render -quality #{Grim::QUALITY} -colorspace RGB -interlace none -density #{Grim::DENSITY} #{@pdf.path}[#{@index}] #{path}`
+      SafeShell.execute("convert", "-resize", Grim::WIDTH, "-antialias", "-render",
+                        "-quality", Grim::QUALITY, "-colorspace", "RGB",
+                        "-interlace", "none", "-density", Grim::DENSITY,
+                        "#{@pdf.path}[#{@index}]", path)
       File.exists?(path)
     end
 
@@ -39,7 +42,7 @@ module Grim
     # Returns a String.
     #
     def text
-      `pdftotext -enc UTF-8 -f #{@page} -l #{@page} #{@pdf.path} -`
+      SafeShell.execute("pdftotext", "-enc", "UTF-8", "-f", @page, "-l", @page, @pdf.path, "-")
     end
   end
 end
