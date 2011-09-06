@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Grim::Pdf do
+
+  it "should have a path" do
+    Grim::Pdf.new(fixture_path("smoker.pdf")).path.should == fixture_path("smoker.pdf")
+  end
+
   describe "#initialize" do
     it "should raise an error if pdf does not exist" do
       lambda { Grim::Pdf.new(fixture_path("booboo.pdf")) }.should raise_error(Grim::PdfNotFound)
@@ -30,6 +35,13 @@ describe Grim::Pdf do
 
     it "should return an instance of Grim::Page if page exists" do
       @pdf[24].class.should == Grim::Page
+    end
+  end
+
+  describe "#each" do
+    it "should be iterable" do
+      pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
+      pdf.map {|p| p.number }.should == (1..25).to_a
     end
   end
 

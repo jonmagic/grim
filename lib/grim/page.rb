@@ -1,6 +1,8 @@
 module Grim
   class Page
 
+    attr_reader :number
+
     # Sets up some instance variables on new instance.
     #
     # pdf - the pdf this page belongs to
@@ -9,7 +11,7 @@ module Grim
     def initialize(pdf, index)
       @pdf    = pdf
       @index  = index
-      @page   = index + 1
+      @number   = index + 1
     end
 
     # Extracts the selected page and turns it into an image.
@@ -42,7 +44,7 @@ module Grim
     # Returns a String.
     #
     def text
-      SafeShell.execute("pdftotext", "-enc", "UTF-8", "-f", @page, "-l", @page, @pdf.path, "-")
+      SafeShell.execute("pdftotext", "-enc", "UTF-8", "-f", @number, "-l", @number, @pdf.path, "-")
     end
   end
 end

@@ -23,6 +23,10 @@ h2. Usage
   count = pdf.count                         # returns the number of pages in the pdf
   png   = pdf[3].save('/path/to/image.png') # will return true if page was saved or false if not
   text  = pdf[3].text                       # returns text as a String
+
+  pdf.each do |page|
+    puts page.text
+  end
 </pre></code>
 
 h2. License

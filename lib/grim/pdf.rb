@@ -1,6 +1,7 @@
 module Grim
   class Pdf
     attr_accessor :path
+    include Enumerable
 
     # ghostscript prints out a warning, this regex matches it
     WarningRegex = /\*\*\*\*.*\n/
@@ -47,5 +48,12 @@ module Grim
       raise Grim::PageNotFound unless index >= 0 && index < count
       Grim::Page.new(self, index)
     end
+
+    def each
+      (0..(count-1)).each do |index|
+        yield Grim::Page.new(self, index)
+      end
+    end
+
   end
 end

@@ -6,6 +6,10 @@ describe Grim::Page do
     FileUtils.rm_rf(tmp_dir)
   end
 
+  it "should have number" do
+    Grim::Page.new(Grim::Pdf.new(fixture_path("smoker.pdf")), 1).number.should == 2
+  end
+
   describe "#save" do
     before(:all) do
       pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
