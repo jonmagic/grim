@@ -51,8 +51,8 @@ class Grim
   #   # => 4
   #
   # Returns an Integer.
-  def page_count
-    @page_count ||= begin
+  def count
+    @count ||= begin
       `gs -dNODISPLAY -q -sFile=#{@path} ./lib/pdf_info.ps`.to_i
     end
   end

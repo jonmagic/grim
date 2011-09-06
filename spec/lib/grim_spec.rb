@@ -16,10 +16,10 @@ describe Grim do
     end
   end
 
-  describe "#page_count" do
-    it "should return an integer" do
+  describe "#count" do
+    it "should return 25" do
       instance = Grim.new(fixture_path("smoker.pdf"))
-      instance.page_count.should == 25
+      instance.count.should == 25
     end
   end
 
