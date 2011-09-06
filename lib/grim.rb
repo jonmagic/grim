@@ -2,7 +2,7 @@ require 'safe_shell'
 
 module Grim
   # VERSION
-  VERSION = "0.1.0"
+  VERSION = "0.2.0"
 
   # Default resize output width, any positive integer
   WIDTH = 1024
