@@ -4,7 +4,7 @@ Grim is a simple gem for extracting a page from a pdf and converting it to an im
 
 h2. Prerequisites
 
-You will need ghostscript, imagemagick, and xpdf installed. On the Mac (OSX) I highly recommend using "Homebrew":http://mxcl.github.com/homebrew/ to get them installed, its as simple as "brew install ghostscript", "brew install imagemagick", and "brew install xpdf".
+You will need ghostscript, imagemagick, and xpdf installed. On the Mac (OSX) I highly recommend using "Homebrew":http://mxcl.github.com/homebrew/ to get them installed, its as simple as "brew install ghostscript imagemagick xpdf".
 
 h2. Usage
 
@@ -15,3 +15,7 @@ h2. Usage
   jpeg = instance.page(2).to_image("/path/to/save/image.jpeg") # saves jpeg to path and returns File instance
   text = instance.page(3).text                                 # returns text as a string
 </pre></code>
+
+h2. License
+
+See LICENSE for details.
