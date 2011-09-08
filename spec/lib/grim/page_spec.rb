@@ -21,12 +21,7 @@ describe Grim::Page do
     it "should create the file" do
       File.exist?(tmp_path("to_png_spec.png")).should be_true
     end
-
-    it "should have the right file size" do
-      @file.stat.size.should == 188515
-    end
   end
-
 
   describe "#text" do
     it "should return the text from the selected page" do
