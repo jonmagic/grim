@@ -13,17 +13,18 @@ describe Grim::Page do
 
   describe "#save" do
     before(:all) do
-      pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
-      pdf[0].save(tmp_path("to_png_spec.png"))
-      @file = File.open(tmp_path("to_png_spec.png"))
+      @path = tmp_path("to_png_spec.png")
+      pdf   = Grim::Pdf.new(fixture_path("smoker.pdf"))
+
+      pdf[0].save(@path)
     end
 
     it "should create the file" do
-      File.exist?(tmp_path("to_png_spec.png")).should be_true
+      File.exist?(@path).should be_true
     end
 
     it "should use default width of 1024" do
-      width, height = dimensions_for_path(@file.path)
+      width, height = dimensions_for_path(@path)
       width.should == 1024
     end
   end
