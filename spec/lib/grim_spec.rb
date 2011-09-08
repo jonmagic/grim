@@ -11,11 +11,11 @@ describe Grim do
   end
 
   it "should have QUALITY constant set to 90" do
-    Grim::QUALITY.should == 90
+    Grim::QUALITY.should == 75
   end
 
   it "should have DENSITY constant set to 300" do
-    Grim::DENSITY.should == 300
+    Grim::DENSITY.should == 150
   end
 
   describe "#new" do
