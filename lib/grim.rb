@@ -23,6 +23,10 @@ module Grim
   class PageNotFound < Grim::Exception
   end
 
+  # Exception that is raised if an empty path is passed to Grim::Page#save
+  class PathMissing < Grim::Exception
+  end
+
   # Creates and returns a new instance of Grim::Pdf
   #
   # path - a path string or object

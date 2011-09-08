@@ -30,6 +30,8 @@ module Grim
     # Returns a File.
     #
     def save(path, options={})
+      raise PathMissing if path.nil? || path !~ /\S/
+
       width   = options.fetch(:width,   Grim::WIDTH)
       density = options.fetch(:density, Grim::DENSITY)
       quality = options.fetch(:quality, Grim::QUALITY)

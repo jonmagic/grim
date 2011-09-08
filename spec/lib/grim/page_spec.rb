@@ -29,6 +29,18 @@ describe Grim::Page do
     end
   end
 
+  describe "#save with empty path" do
+    before(:each) do
+      @path = tmp_path("to_png_spec.png")
+      @pdf  = Grim::Pdf.new(fixture_path("smoker.pdf"))
+    end
+
+    it "raises an exception" do
+      lambda { @pdf[0].save(nil) }.should raise_error(Grim::PathMissing)
+      lambda { @pdf[0].save('  ') }.should raise_error(Grim::PathMissing)
+    end
+  end
+
   describe "#save with width option" do
     before(:each) do
       @path = tmp_path("to_png_spec.png")
