@@ -1,4 +1,5 @@
 # encoding: UTF-8
+require 'benchmark'
 require 'rubygems'
 require 'bundler/setup'
 

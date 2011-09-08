@@ -19,6 +19,8 @@ module Grim
     # Tested on png and jpeg.
     #
     # path - String of the path to save to
+    # options - Hash of options to customize the saving of the image
+    #           (ie: width, density, and quality)
     #
     # For example:
     #
@@ -27,11 +29,16 @@ module Grim
     #
     # Returns a File.
     #
-    def save(path)
-      SafeShell.execute("convert", "-resize", Grim::WIDTH, "-antialias", "-render",
-                        "-quality", Grim::QUALITY, "-colorspace", "RGB",
-                        "-interlace", "none", "-density", Grim::DENSITY,
+    def save(path, options={})
+      width   = options.fetch(:width,   Grim::WIDTH)
+      density = options.fetch(:density, Grim::DENSITY)
+      quality = options.fetch(:quality, Grim::QUALITY)
+
+      SafeShell.execute("convert", "-resize", width, "-antialias", "-render",
+                        "-quality", quality, "-colorspace", "RGB",
+                        "-interlace", "none", "-density", density,
                         "#{@pdf.path}[#{@index}]", path)
+
       File.exists?(path)
     end
 

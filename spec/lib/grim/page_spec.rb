@@ -29,6 +29,51 @@ describe Grim::Page do
     end
   end
 
+  describe "#save with width option" do
+    before(:each) do
+      @path = tmp_path("to_png_spec.png")
+      pdf   = Grim::Pdf.new(fixture_path("smoker.pdf"))
+
+      pdf[0].save(@path, :width => 20)
+    end
+
+    it "should set width" do
+      width, height = dimensions_for_path(@path)
+      width.should == 20
+    end
+  end
+
+  describe "#save with quality option" do
+    before(:each) do
+      @path = tmp_path("to_png_spec.jpg")
+      @pdf  = Grim::Pdf.new(fixture_path("smoker.pdf"))
+    end
+
+    it "should use quality" do
+      @pdf[0].save(@path, :quality => 20)
+      lower_size = File.size(@path)
+
+      @pdf[0].save(@path, :quality => 90)
+      higher_size = File.size(@path)
+
+      (lower_size < higher_size).should be_true
+    end
+  end
+
+  describe "#save with density option" do
+    before(:each) do
+      @path = tmp_path("to_png_spec.jpg")
+      @pdf  = Grim::Pdf.new(fixture_path("smoker.pdf"))
+    end
+
+    it "should use density" do
+      lower_time  = Benchmark.realtime { @pdf[0].save(@path, :density => 20) }
+      higher_time = Benchmark.realtime { @pdf[0].save(@path, :density => 300) }
+
+      (lower_time < higher_time).should be_true
+    end
+  end
+
   describe "#text" do
     it "should return the text from the selected page" do
       pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
