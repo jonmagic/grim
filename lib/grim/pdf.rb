@@ -29,8 +29,7 @@ module Grim
     #
     def count
       @count ||= begin
-        result = SafeShell.execute("gs", "-dNODISPLAY", "-q", "-sFile=#{@path}", "./lib/pdf_info.ps")
-
+        result = SafeShell.execute("gs", "-dNODISPLAY", "-q", "-sFile=#{@path}", File.expand_path('../../../lib/pdf_info.ps', __FILE__))
         result.gsub(WarningRegex, '').to_i
       end
     end
