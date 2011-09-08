@@ -4,7 +4,11 @@ require 'bundler/setup'
 
 require 'grim'
 
-RSpec.configure do |config|
+module FileHelpers
+  def dimensions_for_path(path)
+    width, height = `identify -format '%wx%h' #{path}`.strip.split('x').map(&:to_f)
+  end
+
   def fixture_path(name)
     path = File.expand_path("./spec/fixtures/")
     File.join(path, name)
@@ -19,4 +23,8 @@ RSpec.configure do |config|
   def tmp_path(name)
     File.join(tmp_dir, name)
   end
+end
+
+RSpec.configure do |config|
+  config.include(FileHelpers)
 end

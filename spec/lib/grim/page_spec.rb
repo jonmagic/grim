@@ -21,6 +21,11 @@ describe Grim::Page do
     it "should create the file" do
       File.exist?(tmp_path("to_png_spec.png")).should be_true
     end
+
+    it "should use default width of 1024" do
+      width, height = dimensions_for_path(@file.path)
+      width.should == 1024
+    end
   end
 
   describe "#text" do
