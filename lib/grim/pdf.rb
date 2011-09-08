@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module Grim
   class Pdf
     include Enumerable
