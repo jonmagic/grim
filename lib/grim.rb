@@ -6,10 +6,10 @@ module Grim
   WIDTH = 1024
 
   # Default image quality, 1 to 100
-  QUALITY = 75
+  QUALITY = 90
 
   # Default density, any positive integer
-  DENSITY = 150
+  DENSITY = 300
 
   # Default exception class for Grim.
   class Exception < ::StandardError
