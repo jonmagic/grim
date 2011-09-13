@@ -36,12 +36,12 @@ module Grim
       density = options.fetch(:density, Grim::DENSITY)
       quality = options.fetch(:quality, Grim::QUALITY)
 
-      SafeShell.execute("convert", "-resize", width, "-antialias", "-render",
+      output = SafeShell.execute("convert", "-resize", width, "-antialias", "-render",
                         "-quality", quality, "-colorspace", "RGB",
                         "-interlace", "none", "-density", density,
                         "#{@pdf.path}[#{@index}]", path)
 
-      File.exists?(path)
+      $? == 0 || raise(UnprocessablePage, output)
     end
 
     # Extracts the text from the selected page.
