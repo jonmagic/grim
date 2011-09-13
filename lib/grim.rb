@@ -27,6 +27,10 @@ module Grim
   class PathMissing < Grim::Exception
   end
 
+  # Exception that is raised if Grim::Page#save can't process the page
+  class UnprocessablePage < Grim::Exception
+  end
+
   # Creates and returns a new instance of Grim::Pdf
   #
   # path - a path string or object
