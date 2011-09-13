@@ -86,6 +86,15 @@ describe Grim::Page do
     end
   end
 
+  describe "#save with an unprocessable PDF" do
+    let(:path) { tmp_path("unprocessable.jpg") }
+    let(:pdf)  { Grim::Pdf.new(fixture_path("unprocessable.pdf")) }
+
+    it "should raise an error" do
+      lambda { pdf[0].save(path) }.should raise_error(Grim::UnprocessablePage, /missing an image filename/)
+    end
+  end
+
   describe "#text" do
     it "should return the text from the selected page" do
       pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
