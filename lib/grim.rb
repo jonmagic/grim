@@ -1,5 +1,6 @@
 # encoding: UTF-8
 require 'safe_shell'
+require 'logger'
 
 module Grim
   # Default resize output width, any positive integer
@@ -43,6 +44,18 @@ module Grim
   #
   def self.reap(path)
     Grim::Pdf.new(path)
+  end
+
+  def self.logger
+    @logger ||= Logger.new(STDOUT)
+  end
+
+  def self.logger=(logger)
+    @logger = logger
+  end
+
+  def self.logging?
+    ENV['GRIM_LOGGING']
   end
 end
 
