@@ -18,7 +18,7 @@ describe Grim do
     Grim::DENSITY.should == 300
   end
 
-  describe "#new" do
+  describe "#reap" do
     it "should return an instance of Grim::Pdf" do
       Grim.reap(fixture_path("smoker.pdf")).class.should == Grim::Pdf
     end
