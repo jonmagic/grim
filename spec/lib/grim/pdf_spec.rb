@@ -19,7 +19,7 @@ describe Grim::Pdf do
   end
 
   describe "#count" do
-    it "should return 25" do
+    it "should return page count" do
       pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
       pdf.count.should == 25
     end
