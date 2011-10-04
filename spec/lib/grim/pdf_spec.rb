@@ -19,9 +19,10 @@ describe Grim::Pdf do
   end
 
   describe "#count" do
-    it "should return page count" do
+    it "should call Grim.processor.count with pdf path" do
+      Grim.processor.should_receive(:count).with(fixture_path("smoker.pdf"))
       pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
-      pdf.count.should == 25
+      pdf.count
     end
   end
 

@@ -48,6 +48,21 @@ h2. Usage
   end
 </pre></code>
 
+We also support using other processors (the default is whatever version of Imagemagick/Ghostscript is in your path).
+
+<pre><code>
+  # specifying one processor with specific ImageMagick and GhostScript paths
+  Grim.processor =  Grim::ImageMagickProcessor.new('/path/to/convert', /path/to/gs/bin/')
+
+  # multiple processors with fallback if first fails, useful if you need multiple versions of convert/gs
+  Grim.processor = Grim::MultiProcessor.new(
+    Grim::ImageMagickProcessor.new('/path/to/convert/bin/', /path/to/ghostscript/bin/'),
+    Grim::ImageMagickProcessor.new('/path/to/convert/bin/', /path/to/ghostscript/bin/')
+  )
+
+  pdf = Grim.reap('/path/to/pdf)
+</code></pre>
+
 h2. License
 
 See LICENSE for details.
