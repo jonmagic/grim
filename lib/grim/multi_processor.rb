@@ -6,8 +6,8 @@ module Grim
 
     def count(path)
       result = ""
-      for i in 0..(@processors.length - 1)
-        result = @processors[i].count(path)
+      @processors.each do |processor|
+        result = processor.count(path)
         break if result != ""
       end
       result
@@ -15,8 +15,8 @@ module Grim
 
     def save(pdf, index, path, options)
       result = true
-      for i in 0..(@processors.length - 1)
-        result = @processors[i].save(pdf, index, path, options)
+      @processors.each do |processor|
+        result = processor.save(pdf, index, path, options)
         break if result
       end
       raise UnprocessablePage unless result

@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require 'safe_shell'
+require 'shellwords'
 
 module Grim
   extend self

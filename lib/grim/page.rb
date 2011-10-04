@@ -45,7 +45,7 @@ module Grim
     # Returns a String.
     #
     def text
-      SafeShell.execute("pdftotext", "-enc", "UTF-8", "-f", @number, "-l", @number, @pdf.path, "-")
+      `#{["pdftotext", "-enc", "UTF-8", "-f", @number, "-l", @number, Shellwords.escape(@pdf.path), "-"].join(' ')}`
     end
   end
 end

@@ -18,16 +18,6 @@ describe Grim::ImageMagickProcessor do
     it "should return page count" do
       @processor.count(fixture_path("smoker.pdf")).should == 25
     end
-
-    it "should call modify_path" do
-      @processor.should_receive(:modify_path)
-      @processor.count(fixture_path("smoker.pdf"))
-    end
-
-    it "should call release_path" do
-      @processor.should_receive(:release_path)
-      @processor.count(fixture_path("smoker.pdf"))
-    end
   end
 
   describe "#save" do
@@ -47,18 +37,6 @@ describe Grim::ImageMagickProcessor do
       @processor.save(@pdf, 0, @path, {})
       width, height = dimensions_for_path(@path)
       width.should == 1024
-    end
-
-    it "should call modify_path" do
-      SafeShell.stub(:execute){true}
-      @processor.should_receive(:modify_path)
-      @processor.save(@pdf, 0, @path, {})
-    end
-
-    it "should call release_path" do
-      SafeShell.stub(:execute){true}
-      @processor.should_receive(:release_path)
-      @processor.save(@pdf, 0, @path, {})
     end
   end
 
@@ -104,59 +82,6 @@ describe Grim::ImageMagickProcessor do
       higher_time = Benchmark.realtime { Grim::ImageMagickProcessor.new.save(@pdf, 0, @path, {:density => 300}) }
 
       (lower_time < higher_time).should be_true
-    end
-  end
-
-  describe "#modify_path" do
-    describe "imagemagick_bin_path set" do
-      it "should add /path/to/convert/ to beginning of path" do
-        processor = Grim::ImageMagickProcessor.new({:imagemagick_bin_path => '/path/to/convert/'})
-        processor.modify_path
-        ENV['PATH'].split(':')[0].should == '/path/to/convert/'
-      end
-
-      after(:each) do
-        ENV['PATH'] = @reset_to
-      end
-    end
-
-    describe "ghostscript_bin_path set" do
-      it "should add /path/to/convert/ to beginning of path" do
-        processor = Grim::ImageMagickProcessor.new({:ghostscript_bin_path => '/path/to/gs/'})
-        processor.modify_path
-        ENV['PATH'].split(':')[0].should == '/path/to/gs/'
-      end
-
-      after(:each) do
-        ENV['PATH'] = @reset_to
-      end
-    end
-
-    describe "imagemagick_bin_path and ghostscript_bin_path set" do
-      it "should add /path/to/convert/ to beginning of path" do
-        processor = Grim::ImageMagickProcessor.new({:imagemagick_bin_path => '/path/to/convert/', :ghostscript_bin_path => '/path/to/gs/'})
-        processor.modify_path
-        ENV['PATH'].split(':')[0].should == '/path/to/gs/'
-        ENV['PATH'].split(':')[1].should == '/path/to/convert/'
-      end
-
-      after(:each) do
-        ENV['PATH'] = @reset_to
-      end
-    end
-  end
-
-  describe "#release_path" do
-    before(:each) do
-      ENV['PATH'] = '/grim/reaper/:/the/scythe/is/inevitable/'
-      @processor = Grim::ImageMagickProcessor.new({:imagemagick_bin_path => '/path/to/convert/', :ghostscript_bin_path => '/path/to/gs/'})
-      @processor.modify_path
-    end
-
-    it "should set path back to original" do
-      ENV['PATH'].should == '/path/to/gs/:/path/to/convert/:/grim/reaper/:/the/scythe/is/inevitable/'
-      @processor.release_path
-      ENV['PATH'].should == '/grim/reaper/:/the/scythe/is/inevitable/'
     end
   end
 end
