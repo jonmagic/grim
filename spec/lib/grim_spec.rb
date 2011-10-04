@@ -2,6 +2,10 @@
 require 'spec_helper'
 
 describe Grim do
+  it "should have a default processor" do
+    Grim.processor.class.should == Grim::ImageMagickProcessor
+  end
+
   it "should have a VERSION constant" do
     Grim.const_defined?('VERSION').should be_true
   end
@@ -18,7 +22,7 @@ describe Grim do
     Grim::DENSITY.should == 300
   end
 
-  describe "#new" do
+  describe "#reap" do
     it "should return an instance of Grim::Pdf" do
       Grim.reap(fixture_path("smoker.pdf")).class.should == Grim::Pdf
     end

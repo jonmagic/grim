@@ -32,16 +32,7 @@ module Grim
     def save(path, options={})
       raise PathMissing if path.nil? || path !~ /\S/
 
-      width   = options.fetch(:width,   Grim::WIDTH)
-      density = options.fetch(:density, Grim::DENSITY)
-      quality = options.fetch(:quality, Grim::QUALITY)
-
-      output = SafeShell.execute("convert", "-resize", width, "-antialias", "-render",
-                        "-quality", quality, "-colorspace", "RGB",
-                        "-interlace", "none", "-density", density,
-                        "#{@pdf.path}[#{@index}]", path)
-
-      $? == 0 || raise(UnprocessablePage, output)
+      Grim.processor.save(@pdf, @index, path, options)
     end
 
     # Extracts the text from the selected page.
@@ -54,7 +45,7 @@ module Grim
     # Returns a String.
     #
     def text
-      SafeShell.execute("pdftotext", "-enc", "UTF-8", "-f", @number, "-l", @number, @pdf.path, "-")
+      `#{["pdftotext", "-enc", "UTF-8", "-f", @number, "-l", @number, Shellwords.escape(@pdf.path), "-"].join(' ')}`
     end
   end
 end

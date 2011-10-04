@@ -1,7 +1,10 @@
 # encoding: UTF-8
-require 'safe_shell'
+require 'shellwords'
 
 module Grim
+  extend self
+  attr_accessor :processor
+
   # Default resize output width, any positive integer
   WIDTH = 1024
 
@@ -48,3 +51,7 @@ end
 
 require 'grim/pdf'
 require 'grim/page'
+require 'grim/image_magick_processor'
+require 'grim/multi_processor'
+
+Grim.processor = Grim::ImageMagickProcessor.new
