@@ -65,8 +65,8 @@ We also support using other processors (the default is whatever version of Image
 
 h2. Reference
 
-* http://jonmagic.com/blog/archives/2011/09/06/grim/
-* http://jonmagic.com/blog/archives/2011/10/06/grim-multiprocessor-to-the-rescue/
+* "jonmagic.com: Grim":http://jonmagic.com/blog/archives/2011/09/06/grim/
+* "jonmagic.com: Grim MultiProcessor":http://jonmagic.com/blog/archives/2011/10/06/grim-multiprocessor-to-the-rescue/
 
 h2. License
 
