@@ -23,10 +23,10 @@ Grim is a simple gem for extracting (reaping) a page from a pdf and converting i
 
 h2. Prerequisites
 
-You will need ghostscript, imagemagick, and xpdf installed. On the Mac (OSX) I highly recommend using "Homebrew":http://mxcl.github.com/homebrew/ to get them installed.
+You will need ghostscript, imagemagick, and poppler installed. On the Mac (OSX) I highly recommend using "Homebrew":http://mxcl.github.com/homebrew/ to get them installed.
 
 <pre><code>
-  brew install ghostscript imagemagick xpdf
+  brew install ghostscript imagemagick poppler
 </code></pre>
 
 h2. Installation
