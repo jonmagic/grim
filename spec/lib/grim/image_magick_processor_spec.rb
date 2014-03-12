@@ -84,4 +84,22 @@ describe Grim::ImageMagickProcessor do
       (lower_time < higher_time).should be_true
     end
   end
+
+  describe "#save with colorspace option" do
+    before(:each) do
+      @path1 = tmp_path("to_png_spec-1.jpg")
+      @path2 = tmp_path("to_png_spec-2.jpg")
+      @pdf  = Grim::Pdf.new(fixture_path("smoker.pdf"))
+    end
+
+    it "should use colorspace" do
+      Grim::ImageMagickProcessor.new.save(@pdf, 0, @path1, {:colorspace => 'RGB'})
+      Grim::ImageMagickProcessor.new.save(@pdf, 0, @path2, {:colorspace => 'sRGB'})
+
+      file1_size = File.stat(@path1).size
+      file2_size = File.stat(@path2).size
+
+      file1_size.should_not == file2_size
+    end
+  end
 end

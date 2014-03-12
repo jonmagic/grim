@@ -14,6 +14,9 @@ module Grim
   # Default density, any positive integer
   DENSITY = 300
 
+  # Default colorspace
+  COLORSPACE = "RGB"
+
   # Default exception class for Grim.
   class Exception < ::StandardError
   end
