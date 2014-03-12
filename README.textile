@@ -68,6 +68,14 @@ h2. Reference
 * "jonmagic.com: Grim":http://jonmagic.com/blog/archives/2011/09/06/grim/
 * "jonmagic.com: Grim MultiProcessor":http://jonmagic.com/blog/archives/2011/10/06/grim-multiprocessor-to-the-rescue/
 
+h2. Contributors
+
+* "@jonmagic":https://github.com/jonmagic
+* "@jnunemaker":https://github.com/jnunemaker
+* "@bryckbost":https://github.com/bryckbost
+* "@bkeepers":https://github.com/bkeepers
+* "@BobaFaux":https://github.com/BobaFaux
+
 h2. License
 
 See LICENSE for details.
