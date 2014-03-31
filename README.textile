@@ -40,8 +40,14 @@ h2. Usage
 <pre><code>
   pdf   = Grim.reap("/path/to/pdf")         # returns Grim::Pdf instance for pdf
   count = pdf.count                         # returns the number of pages in the pdf
-  png   = pdf[3].save('/path/to/image.png') # will return true if page was saved or false if not
+          pdf[3].save('/path/to/image.png') # will return true if page was saved or false if not
   text  = pdf[3].text                       # returns text as a String
+
+  # You may pass options to the save method, including `:width`, `:density`,
+  # `:quality`, `:colorspace`, and `:extra`. The last one, `:extra`, takes an
+  # Array of processor specific options. In this example I pass in two optional
+  # ImageMagick specific command line options.
+  pdf[3].save('/path/to/image.png', :extra => ["-flatten", "-background white"])
 
   pdf.each do |page|
     puts page.text
