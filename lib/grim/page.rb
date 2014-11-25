@@ -8,6 +8,10 @@ module Grim
     #
     # pdf - the pdf this page belongs to
     # index - the index of the page in the array of pages
+    # options - A Hash of options.
+    #           :pdftotext_path - The String path of where to find the pdftotext
+    #                             binary to use when extracting text
+    #                             (default: "pdftotext").
     #
     def initialize(pdf, index, options = {})
       @pdf    = pdf
