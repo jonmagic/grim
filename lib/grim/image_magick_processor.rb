@@ -19,20 +19,40 @@ module Grim
       result.gsub(WarningRegex, '').to_i
     end
 
-    def save(pdf, index, path, options)
-      width   = options.fetch(:width,   Grim::WIDTH)
-      density = options.fetch(:density, Grim::DENSITY)
-      quality = options.fetch(:quality, Grim::QUALITY)
-      colorspace = options.fetch(:colorspace, Grim::COLORSPACE)
-      command = [@imagemagick_path, "-resize", width.to_s, "-antialias", "-render",
-        "-quality", quality.to_s, "-colorspace", colorspace,
-        "-interlace", "none", "-density", density.to_s,
-        "#{Shellwords.shellescape(pdf.path)}[#{index}]", path]
-      command.unshift("PATH=#{File.dirname(@ghostscript_path)}:#{ENV['PATH']}") if @ghostscript_path
-
-      result = `#{command.join(' ')}`
+    def save(pdf, index, path, options={})
+      result = `#{command(pdf, index, path, options)}`
 
       $? == 0 || raise(UnprocessablePage, result)
+    end
+
+    private
+
+    def command(pdf, index, path, options)
+      # Default options.
+      command  = [@imagemagick_path]
+      command += ["-antialias"]
+      command += ["-render"]
+      command += ["-interlace", "none"]
+
+      # Overrideable default options.
+      command += ["-resize", options.fetch(:width, Grim::WIDTH).to_s]
+      command += ["-quality", options.fetch(:quality, Grim::QUALITY).to_s]
+      command += ["-colorspace", options.fetch(:colorspace, Grim::COLORSPACE).to_s]
+      command += ["-density", options.fetch(:density, Grim::DENSITY).to_s]
+
+      # Extra options.
+      Array(options[:extra]).each do |extra_option|
+        command << extra_option
+      end
+
+      # Output path (escaped because we don't have control over the incoming filename).
+      command += ["#{Shellwords.shellescape(pdf.path)}[#{index}]", path]
+
+      # Add ghostscript to PATH if it has been manually set.
+      command.unshift("PATH=#{File.dirname(@ghostscript_path)}:#{ENV['PATH']}") if @ghostscript_path
+
+      # And finally return the compiled command.
+      command.join(' ')
     end
   end
 end

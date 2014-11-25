@@ -102,4 +102,22 @@ describe Grim::ImageMagickProcessor do
       file1_size.should_not == file2_size
     end
   end
+
+  describe "#save with extra options" do
+    before(:each) do
+      @path1 = tmp_path("to_png_spec-1.jpg")
+      @path2 = tmp_path("to_png_spec-2.jpg")
+      @pdf  = Grim::Pdf.new(fixture_path("purple-on-black.pdf"))
+    end
+
+    it "should use colorspace" do
+      Grim::ImageMagickProcessor.new.save(@pdf, 0, @path1)
+      Grim::ImageMagickProcessor.new.save(@pdf, 0, @path2, {:extra => ["-flatten", "-background white"]})
+
+      file1_size = File.stat(@path1).size
+      file2_size = File.stat(@path2).size
+
+      file1_size.should_not == file2_size
+    end
+  end
 end
