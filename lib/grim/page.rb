@@ -8,11 +8,16 @@ module Grim
     #
     # pdf - the pdf this page belongs to
     # index - the index of the page in the array of pages
+    # options - A Hash of options.
+    #           :pdftotext_path - The String path of where to find the pdftotext
+    #                             binary to use when extracting text
+    #                             (default: "pdftotext").
     #
-    def initialize(pdf, index)
+    def initialize(pdf, index, options = {})
       @pdf    = pdf
       @index  = index
       @number   = index + 1
+      @pdftotext_path = options[:pdftotext_path] || 'pdftotext'
     end
 
     # Extracts the selected page and turns it into an image.
@@ -45,7 +50,7 @@ module Grim
     # Returns a String.
     #
     def text
-      `#{["pdftotext", "-enc", "UTF-8", "-f", @number, "-l", @number, Shellwords.escape(@pdf.path), "-"].join(' ')}`
+      `#{[@pdftotext_path, "-enc", "UTF-8", "-f", @number, "-l", @number, Shellwords.escape(@pdf.path), "-"].join(' ')}`
     end
   end
 end

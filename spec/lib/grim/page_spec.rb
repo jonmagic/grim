@@ -47,7 +47,13 @@ describe Grim::Page do
   describe "#text" do
     it "should return the text from the selected page" do
       pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
-      pdf[1].text.should == "Step 1: get someone to print this curve for you to scale, 72” wide\n\nStep 2: Get a couple 55 gallon drums\n\n\f"
+      pdf[1].text.should == "Step 1: get someone to print this curve for you to scale, 72” wide\nStep 2: Get a couple 55 gallon drums\n\n\f"
+    end
+
+    it "works with full path to pdftotext" do
+      pdftotext_path = `which pdftotext`.chomp
+      pdf = Grim::Pdf.new(fixture_path("smoker.pdf"), pdftotext_path: pdftotext_path)
+      pdf[1].text.should == "Step 1: get someone to print this curve for you to scale, 72” wide\nStep 2: Get a couple 55 gallon drums\n\n\f"
     end
   end
 end
