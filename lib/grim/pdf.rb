@@ -9,6 +9,10 @@ module Grim
     # variables if pdf is found.
     #
     # path - A String or Path to the pdf
+    # options - A Hash of options.
+    #           :pdftotext_path - The String path of where to find the pdftotext
+    #                             binary to use when extracting text
+    #                             (default: "pdftotext").
     #
     def initialize(path, options = {})
       raise Grim::PdfNotFound unless File.exists?(path)
