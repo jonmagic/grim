@@ -29,5 +29,5 @@ end
 
 RSpec.configure do |config|
   config.include(FileHelpers)
-  config.filter_run_excluding :windows => true unless RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/
+  config.filter_run_excluding :windows => true if RbConfig::CONFIG['host_os'].match(/mswin|mingw|cygwin/) == nil
 end

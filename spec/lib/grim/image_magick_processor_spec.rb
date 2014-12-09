@@ -20,7 +20,7 @@ describe Grim::ImageMagickProcessor do
     end
   end
 
-  describe "#count with windows executable" do
+  describe "#count with windows executable", :windows => true do
     before(:each) do
       @processor = Grim::ImageMagickProcessor.new({:ghostscript_executable => "gswin64c.exe"})
     end
