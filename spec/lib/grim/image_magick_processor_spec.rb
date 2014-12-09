@@ -20,6 +20,16 @@ describe Grim::ImageMagickProcessor do
     end
   end
 
+  describe "#count with windows executable" do
+    before(:each) do
+      @processor = Grim::ImageMagickProcessor.new({:ghostscript_executable => "gswin64c.exe"})
+    end
+
+    it "should return page count" do
+      @processor.count(fixture_path("smoker.pdf")).should == 25
+    end
+  end
+
   describe "#save" do
     before(:all) do
       @path = tmp_path("to_png_spec.png")

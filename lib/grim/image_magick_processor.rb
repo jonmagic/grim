@@ -7,6 +7,7 @@ module Grim
     def initialize(options={})
       @imagemagick_path = options[:imagemagick_path] || 'convert'
       @ghostscript_path = options[:ghostscript_path]
+      @ghostscript_exec = options[:ghostscript_executable] || 'gs'
       @original_path        = ENV['PATH']
     end
 
@@ -14,7 +15,7 @@ module Grim
       command = ["-dNODISPLAY", "-q",
         "-sFile=#{Shellwords.shellescape(path)}",
         File.expand_path('../../../lib/pdf_info.ps', __FILE__)]
-      @ghostscript_path ? command.unshift(@ghostscript_path) : command.unshift('gs')
+      @ghostscript_path ? command.unshift(@ghostscript_path) : command.unshift(@ghostscript_exec)
       result = `#{command.join(' ')}`
       result.gsub(WarningRegex, '').to_i
     end
