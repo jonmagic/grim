@@ -17,9 +17,6 @@ module Grim
   # Default colorspace
   COLORSPACE = "RGB"
 
-  # Default alpha
-  ALPHA = "Set"
-
   # Default exception class for Grim.
   class Exception < ::StandardError
   end

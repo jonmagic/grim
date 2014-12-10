@@ -26,10 +26,6 @@ describe Grim do
     Grim::COLORSPACE.should == 'RGB'
   end
 
-  it "should have ALPHA constant set to 'Set'" do
-    Grim::ALPHA.should == 'Set'
-  end
-
   describe "#reap" do
     it "should return an instance of Grim::Pdf" do
       Grim.reap(fixture_path("smoker.pdf")).class.should == Grim::Pdf

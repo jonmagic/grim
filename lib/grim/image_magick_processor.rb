@@ -21,12 +21,11 @@ module Grim
     end
 
     def save(pdf, index, path, options)
-      alpha = options.fetch(:alpha, Grim::ALPHA)
       width   = options.fetch(:width,   Grim::WIDTH)
       density = options.fetch(:density, Grim::DENSITY)
       quality = options.fetch(:quality, Grim::QUALITY)
       colorspace = options.fetch(:colorspace, Grim::COLORSPACE)
-      command = [@imagemagick_path, "-resize", width.to_s, "-alpha", alpha, "-antialias", "-render",
+      command = [@imagemagick_path, "-resize", width.to_s, "-antialias", "-render",
         "-quality", quality.to_s, "-colorspace", colorspace,
         "-interlace", "none", "-density", density.to_s,
         "#{Shellwords.shellescape(pdf.path)}[#{index}]", path]
