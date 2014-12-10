@@ -40,7 +40,7 @@ describe Grim::ImageMagickProcessor do
 
     it "should create the file" do
       @processor.save(@pdf, 0, @path, {})
-      File.exist?(@path).should be_true
+      File.exist?(@path).should be_truthy
     end
 
     it "should use default width of 1024" do
@@ -77,7 +77,7 @@ describe Grim::ImageMagickProcessor do
       Grim::ImageMagickProcessor.new.save(@pdf, 0, @path, {:quality => 90})
       higher_size = File.size(@path)
 
-      (lower_size < higher_size).should be_true
+      (lower_size < higher_size).should be_truthy
     end
   end
 
@@ -91,7 +91,7 @@ describe Grim::ImageMagickProcessor do
       lower_time  = Benchmark.realtime { Grim::ImageMagickProcessor.new.save(@pdf, 0, @path, {:density => 72}) }
       higher_time = Benchmark.realtime { Grim::ImageMagickProcessor.new.save(@pdf, 0, @path, {:density => 300}) }
 
-      (lower_time < higher_time).should be_true
+      (lower_time < higher_time).should be_truthy
     end
   end
 
@@ -106,8 +106,8 @@ describe Grim::ImageMagickProcessor do
       Grim::ImageMagickProcessor.new.save(@pdf, 0, @path1, {:alpha => 'Set'})
       Grim::ImageMagickProcessor.new.save(@pdf, 0, @path2, {:alpha => 'Remove'})
 
-      `convert #{@path1} -verbose info:`.include?("alpha: 8-bit").should be_true
-      `convert #{@path2} -verbose info:`.include?("alpha: 1-bit").should be_true
+      `convert #{@path1} -verbose info:`.include?("alpha: 8-bit").should be_truthy
+      `convert #{@path2} -verbose info:`.include?("alpha: 1-bit").should be_truthy
     end
   end
 

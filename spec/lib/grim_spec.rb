@@ -7,7 +7,7 @@ describe Grim do
   end
 
   it "should have a VERSION constant" do
-    Grim.const_defined?('VERSION').should be_true
+    Grim.const_defined?('VERSION').should be_truthy
   end
 
   it "should have WIDTH constant set to 1024" do
