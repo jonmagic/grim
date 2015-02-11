@@ -3,19 +3,19 @@ module Grim
 
     # ghostscript prints out a warning, this regex matches it
     WarningRegex = /\*\*\*\*.*\n/
+    DefaultImagemagickPath = 'convert'
+    DefaultGhostScriptPath = 'gs'
 
     def initialize(options={})
-      @imagemagick_path = options[:imagemagick_path] || 'convert'
-      @ghostscript_path = options[:ghostscript_path]
-      @ghostscript_exec = options[:ghostscript_executable] || 'gs'
+      @imagemagick_path = options[:imagemagick_path] || DefaultImagemagickPath
+      @ghostscript_path = options[:ghostscript_path] || DefaultGhostScriptPath
       @original_path        = ENV['PATH']
     end
 
     def count(path)
-      command = ["-dNODISPLAY", "-q",
+      command = [@ghostscript_path, "-dNODISPLAY", "-q",
         "-sFile=#{Shellwords.shellescape(path)}",
         File.expand_path('../../../lib/pdf_info.ps', __FILE__)]
-      @ghostscript_path ? command.unshift(@ghostscript_path) : command.unshift(@ghostscript_exec)
       result = `#{command.join(' ')}`
       result.gsub(WarningRegex, '').to_i
     end
@@ -29,7 +29,7 @@ module Grim
         "-quality", quality.to_s, "-colorspace", colorspace,
         "-interlace", "none", "-density", density.to_s,
         "#{Shellwords.shellescape(pdf.path)}[#{index}]", path]
-      command.unshift("PATH=#{File.dirname(@ghostscript_path)}:#{ENV['PATH']}") if @ghostscript_path
+      command.unshift("PATH=#{File.dirname(@ghostscript_path)}:#{ENV['PATH']}") if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
 
       result = `#{command.join(' ')}`
 

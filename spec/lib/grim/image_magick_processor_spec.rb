@@ -22,7 +22,7 @@ describe Grim::ImageMagickProcessor do
 
   describe "#count with windows executable", :windows => true do
     before(:each) do
-      @processor = Grim::ImageMagickProcessor.new({:ghostscript_executable => "gswin64c.exe"})
+      @processor = Grim::ImageMagickProcessor.new({:ghostscript_path => "gswin64c.exe"})
     end
 
     it "should return page count" do
