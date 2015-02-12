@@ -68,9 +68,9 @@ It is also supported to use another ghostscript executable, which is especially 
 <pre><code>
   # specifying another ghostscript executable, win64 in this example
   # the ghostscript/bin folder still has to be in the PATH for this to work
-  Grim.processor =  Grim::ImageMagickProcessor.new({:ghostscript_executable => "gswin64c.exe"})
+  Grim.processor =  Grim::ImageMagickProcessor.new({:ghostscript_path => "gswin64c.exe"})
 
-  pdf = Grim.reap('/path/to/pdf)
+  pdf = Grim.reap('/path/to/pdf')
 </code></pre>
 
 h2. Reference
