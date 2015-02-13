@@ -26,7 +26,7 @@ describe Grim::ImageMagickProcessor do
     end
 
     it "should return page count" do
-      @processor.count(fixture_path("smoker.pdf")).should == 25
+      expect(@processor.count(fixture_path("smoker.pdf"))).to eq(25)
     end
   end
 
