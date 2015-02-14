@@ -14,9 +14,9 @@ describe Grim::MultiProcessor do
 
   describe "#count" do
     it "should try processors until it succeeds" do
-      @failure.stub(:count){""}
-      @success.should_receive(:count).and_return(30)
-      @extra.should_not_receive(:count)
+      allow(@failure).to receive(:count).and_return("")
+      expect(@success).to receive(:count).and_return(30)
+      expect(@extra).to_not receive(:count)
 
       @processor.count(@path)
     end
@@ -24,19 +24,19 @@ describe Grim::MultiProcessor do
 
   describe "#save" do
     it "should try processors until it succeeds" do
-      @failure.stub(:save){false}
-      @success.should_receive(:save).and_return(true)
-      @extra.should_not_receive(:save)
+      allow(@failure).to receive(:save).and_return(false)
+      expect(@success).to receive(:save).and_return(true)
+      expect(@extra).to_not receive(:save)
 
       @processor.save(@pdf, 0, @path, {})
     end
 
     it "should raise error if all processors fail" do
-      @failure.should_receive(:save).and_return(false)
-      @success.should_receive(:save).and_return(false)
-      @extra.should_receive(:save).and_return(false)
+      expect(@failure).to receive(:save).and_return(false)
+      expect(@success).to receive(:save).and_return(false)
+      expect(@extra).to receive(:save).and_return(false)
 
-      lambda { @processor.save(@pdf, 0, @path, {}) }.should raise_error(Grim::UnprocessablePage)
+      expect { @processor.save(@pdf, 0, @path, {}) }.to raise_error(Grim::UnprocessablePage)
     end
   end
 end

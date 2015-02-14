@@ -16,7 +16,7 @@ describe Grim::ImageMagickProcessor do
     end
 
     it "should return page count" do
-      @processor.count(fixture_path("smoker.pdf")).should == 25
+      expect(@processor.count(fixture_path("smoker.pdf"))).to eq(25)
     end
   end
 
@@ -26,7 +26,7 @@ describe Grim::ImageMagickProcessor do
     end
 
     it "should return page count" do
-      @processor.count(fixture_path("smoker.pdf")).should == 25
+      expect(@processor.count(fixture_path("smoker.pdf"))).to eq(25)
     end
   end
 
@@ -40,13 +40,13 @@ describe Grim::ImageMagickProcessor do
 
     it "should create the file" do
       @processor.save(@pdf, 0, @path, {})
-      File.exist?(@path).should be_true
+      expect(File.exist?(@path)).to be(true)
     end
 
     it "should use default width of 1024" do
       @processor.save(@pdf, 0, @path, {})
       width, height = dimensions_for_path(@path)
-      width.should == 1024
+      expect(width).to eq(1024)
     end
   end
 
@@ -60,7 +60,7 @@ describe Grim::ImageMagickProcessor do
 
     it "should set width" do
       width, height = dimensions_for_path(@path)
-      width.should == 20
+      expect(width).to eq(20)
     end
   end
 
@@ -77,7 +77,7 @@ describe Grim::ImageMagickProcessor do
       Grim::ImageMagickProcessor.new.save(@pdf, 0, @path, {:quality => 90})
       higher_size = File.size(@path)
 
-      (lower_size < higher_size).should be_true
+      expect(lower_size < higher_size).to be(true)
     end
   end
 
@@ -91,7 +91,7 @@ describe Grim::ImageMagickProcessor do
       lower_time  = Benchmark.realtime { Grim::ImageMagickProcessor.new.save(@pdf, 0, @path, {:density => 72}) }
       higher_time = Benchmark.realtime { Grim::ImageMagickProcessor.new.save(@pdf, 0, @path, {:density => 300}) }
 
-      (lower_time < higher_time).should be_true
+      expect(lower_time < higher_time).to be(true)
     end
   end
 
@@ -109,7 +109,7 @@ describe Grim::ImageMagickProcessor do
       file1_size = File.stat(@path1).size
       file2_size = File.stat(@path2).size
 
-      file1_size.should_not == file2_size
+      expect(file1_size).to_not eq(file2_size)
     end
   end
 end
