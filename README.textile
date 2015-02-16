@@ -85,6 +85,7 @@ h2. Contributors
 * "@bryckbost":https://github.com/bryckbost
 * "@bkeepers":https://github.com/bkeepers
 * "@BobaFaux":https://github.com/BobaFaux
+* "@Rubikan":https://github.com/Rubikan
 
 h2. License
 
