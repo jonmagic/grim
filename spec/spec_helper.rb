@@ -2,6 +2,7 @@
 require 'benchmark'
 require 'rubygems'
 require 'bundler/setup'
+require 'rbconfig'
 
 require 'grim'
 
@@ -28,4 +29,5 @@ end
 
 RSpec.configure do |config|
   config.include(FileHelpers)
+  config.filter_run_excluding :windows => true if RbConfig::CONFIG['host_os'].match(/mswin|mingw|cygwin/) == nil
 end

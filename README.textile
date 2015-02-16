@@ -63,6 +63,16 @@ We also support using other processors (the default is whatever version of Image
   pdf = Grim.reap('/path/to/pdf)
 </code></pre>
 
+It is also supported to use another ghostscript executable, which is especially interesting for windows users since the executable is named differently there.
+
+<pre><code>
+  # specifying another ghostscript executable, win64 in this example
+  # the ghostscript/bin folder still has to be in the PATH for this to work
+  Grim.processor =  Grim::ImageMagickProcessor.new({:ghostscript_path => "gswin64c.exe"})
+
+  pdf = Grim.reap('/path/to/pdf')
+</code></pre>
+
 h2. Reference
 
 * "jonmagic.com: Grim":http://jonmagic.com/blog/archives/2011/09/06/grim/
