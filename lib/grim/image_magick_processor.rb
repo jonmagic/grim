@@ -26,7 +26,8 @@ module Grim
       quality = options.fetch(:quality, Grim::QUALITY)
       colorspace = options.fetch(:colorspace, Grim::COLORSPACE)
       alpha   = options.fetch(:alpha, Grim::ALPHA)
-      command = [@imagemagick_path, "-resize", width.to_s, "-alpha", alpha, "-antialias", "-render",
+      alpha   = alpha == '' ? alpha : "-alpha #{alpha}"
+      command = [@imagemagick_path, "-resize", width.to_s, alpha, "-antialias", "-render",
         "-quality", quality.to_s, "-colorspace", colorspace,
         "-interlace", "none", "-density", density.to_s,
         "#{Shellwords.shellescape(pdf.path)}[#{index}]", path]

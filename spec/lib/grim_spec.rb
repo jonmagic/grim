@@ -27,7 +27,7 @@ describe Grim do
   end
   
   it "should have ALPHA constant set to 'Set'" do
-    expect(Grim::ALPHA).to eq('Set')
+    expect(Grim::ALPHA).to eq('')
   end
 
   describe "#reap" do
