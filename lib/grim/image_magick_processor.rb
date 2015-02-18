@@ -29,19 +29,15 @@ module Grim
 
       command = []
       command << @imagemagick_path
-      command << "-resize"
-      command << width.to_s
+      command << "-resize #{width}"
       command << "-alpha #{alpha}" if alpha
       command << "-antialias"
       command << "-render"
-      command << "-quality"
-      command << quality.to_s
-      command << "-colorspace"
-      command << colorspace
+      command << "-quality #{quality}"
+      command << "-colorspace #{colorspace}"
       command << "-interlace"
       command << "none"
-      command << "-density"
-      command << density.to_s
+      command << "-density #{density}"
       command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
       command << path
 
