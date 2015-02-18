@@ -112,4 +112,20 @@ describe Grim::ImageMagickProcessor do
       expect(file1_size).to_not eq(file2_size)
     end
   end
+  
+  describe "#save with alpha option" do
+    before(:each) do
+      @path1 = tmp_path("to_png_spec-1.png")
+      @path2 = tmp_path("to_png_spec-2.png")
+      @pdf  = Grim::Pdf.new(fixture_path("remove_alpha.pdf"))
+    end
+    
+    it "should use alpha" do
+      Grim::ImageMagickProcessor.new.save(@pdf, 0, @path1, {:alpha => 'Set'})
+      Grim::ImageMagickProcessor.new.save(@pdf, 0, @path2, {:alpha => 'Remove'})
+
+      expect(`convert #{@path1} -verbose info:`.include?("alpha: 8-bit")).to be(true)
+      expect(`convert #{@path2} -verbose info:`.include?("alpha: 1-bit")).to be(true)
+    end
+  end
 end
