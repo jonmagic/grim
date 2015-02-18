@@ -25,10 +25,6 @@ describe Grim do
   it "should have COLORSPACE constant set to 'RGB'" do
     expect(Grim::COLORSPACE).to eq('RGB')
   end
-  
-  it "should have ALPHA constant set to 'Set'" do
-    expect(Grim::ALPHA).to eq('')
-  end
 
   describe "#reap" do
     it "should return an instance of Grim::Pdf" do
