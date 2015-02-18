@@ -35,8 +35,7 @@ module Grim
       command << "-render"
       command << "-quality #{quality}"
       command << "-colorspace #{colorspace}"
-      command << "-interlace"
-      command << "none"
+      command << "-interlace none"
       command << "-density #{density}"
       command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
       command << path
