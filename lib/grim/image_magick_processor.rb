@@ -33,15 +33,15 @@ module Grim
       command << width.to_s
       command << alpha if alpha
       command << "-antialias"
-      command << "-render",
+      command << "-render"
       command << "-quality"
       command << quality.to_s
       command << "-colorspace"
-      command << colorspace,
+      command << colorspace
       command << "-interlace"
       command << "none"
       command << "-density"
-      command << density.to_s,
+      command << density.to_s
       command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
       command << path
 
