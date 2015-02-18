@@ -31,7 +31,7 @@ module Grim
       command << @imagemagick_path
       command << "-resize"
       command << width.to_s
-      command << alpha if alpha
+      command << "-alpha #{alpha}" if alpha
       command << "-antialias"
       command << "-render"
       command << "-quality"
