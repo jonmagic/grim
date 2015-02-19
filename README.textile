@@ -86,6 +86,7 @@ h2. Contributors
 * "@bkeepers":https://github.com/bkeepers
 * "@BobaFaux":https://github.com/BobaFaux
 * "@Rubikan":https://github.com/Rubikan
+* "@victormier":https://github.com/victormier
 
 h2. License
 
