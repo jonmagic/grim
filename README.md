@@ -63,7 +63,7 @@ Grim.processor = Grim::MultiProcessor.new([
 pdf = Grim.reap('/path/to/pdf')
 ```
 
-It is also supported to use another ghostscript executable, which is especially interesting for windows users since the executable is named differently there.
+You can even specify a Windows executable :zap:
 
 ```ruby
 # specifying another ghostscript executable, win64 in this example
@@ -71,6 +71,19 @@ It is also supported to use another ghostscript executable, which is especially 
 Grim.processor =  Grim::ImageMagickProcessor.new({:ghostscript_path => "gswin64c.exe"})
 
 pdf = Grim.reap('/path/to/pdf')
+```
+
+`Grim::ImageMagickProcessor#save` supports several options as well:
+
+```ruby
+pdf = Grim.reap("/path/to/pdf")
+pdf[0].save('/path/to/image.png', {
+  :width => 600,         # defaults to 1024
+  :density => 72,        # defaults to 300
+  :quality => 60,        # defaults to 90
+  :colorspace => "CMYK", # defaults to "RGB"
+  :alpha => "Activate"   # not used when not set
+})
 ```
 
 ## Reference
