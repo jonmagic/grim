@@ -40,10 +40,12 @@ module Grim
       command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
       command << path
 
-      command.unshift("PATH=#{File.dirname(@ghostscript_path)}:#{ENV['PATH']}") if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
+      ENV['PATH'] = "#{File.dirname(@ghostscript_path)}#{File::PATH_SEPARATOR}#{ENV['PATH']}" if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
 
       result = `#{command.join(' ')}`
-
+      
+      ENV['PATH'] = @original_path if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
+      
       $? == 0 || raise(UnprocessablePage, result)
     end
   end
