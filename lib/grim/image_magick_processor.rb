@@ -39,14 +39,16 @@ module Grim
       command << "-density #{density}"
       command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
       command << path
-
-      ENV['PATH'] = "#{File.dirname(@ghostscript_path)}#{File::PATH_SEPARATOR}#{ENV['PATH']}" if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
-
-      result = `#{command.join(' ')}`
       
-      ENV['PATH'] = @original_path if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
+      begin
+        ENV['PATH'] = "#{File.dirname(@ghostscript_path)}#{File::PATH_SEPARATOR}#{ENV['PATH']}" if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
+        result = `#{command.join(' ')}`
+      ensure
+        ENV['PATH'] = @original_path if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
+      end
       
       $? == 0 || raise(UnprocessablePage, result)
+      
     end
   end
 end
