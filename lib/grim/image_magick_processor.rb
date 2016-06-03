@@ -1,3 +1,5 @@
+require 'open3'
+
 module Grim
   class ImageMagickProcessor
 
@@ -39,16 +41,16 @@ module Grim
       command << "-density #{density}"
       command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
       command << path
-      
-      begin
-        ENV['PATH'] = "#{File.dirname(@ghostscript_path)}#{File::PATH_SEPARATOR}#{ENV['PATH']}" if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
-        result = `#{command.join(' ')}`
-      ensure
-        ENV['PATH'] = @original_path if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
+
+      command_env = {}
+
+      if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
+        command_env['PATH'] = "#{File.dirname(@ghostscript_path)}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
       end
-      
-      $? == 0 || raise(UnprocessablePage, result)
-      
+
+      result, status = Open3.capture2e(command_env, command.join(' '))
+
+      status.success? || raise(UnprocessablePage, result)
     end
   end
 end
