@@ -86,6 +86,19 @@ pdf[0].save('/path/to/image.png', {
 })
 ```
 
+Grim has limited logging abilities. The default logger is `Grim::NullLogger` but you can also set your own logger.
+
+```ruby
+require "logger"
+Grim.logger = Logger.new($stdout).tap { |logger| logger.progname = 'Grim' }
+Grim.processor = Grim::ImageMagickProcessor.new({:ghostscript_path => "/path/to/bin/gs"})
+pdf = Grim.reap("/path/to/pdf")
+pdf[3].save('/path/to/image.png')
+# D, [2016-06-09T22:43:07.046532 #69344] DEBUG -- grim: Running imagemagick command
+# D, [2016-06-09T22:43:07.046626 #69344] DEBUG -- grim: PATH=/path/to/bin:/usr/local/bin:/usr/bin
+# D, [2016-06-09T22:43:07.046787 #69344] DEBUG -- grim: convert -resize 1024 -antialias -render -quality 90 -colorspace RGB -interlace none -density 300 /path/to/pdf /path/to/image.png
+```
+
 ## Reference
 
 * [jonmagic.com: Grim](http://jonmagic.com/blog/archives/2011/09/06/grim/)
