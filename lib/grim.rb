@@ -50,11 +50,26 @@ module Grim
   def self.reap(path)
     Grim::Pdf.new(path)
   end
+
+  # Set a Logger compatible logger for Grim.
+  #
+  # logger - Object with same interface as Logger.new
+  def self.logger=(logger)
+    @logger = logger
+  end
+
+  # Logger to use internally. Defaults to Grim::NullLogger.
+  #
+  # Returns a Logger compatible logger.
+  def self.logger
+    @logger ||= Grim::NullLogger.new
+  end
 end
 
 require 'grim/pdf'
 require 'grim/page'
 require 'grim/image_magick_processor'
 require 'grim/multi_processor'
+require 'grim/null_logger'
 
 Grim.processor = Grim::ImageMagickProcessor.new
