@@ -26,7 +26,7 @@ describe Grim do
     expect(Grim::COLORSPACE).to eq('RGB')
   end
 
-  describe "#reap" do
+  describe ".reap" do
     it "should return an instance of Grim::Pdf" do
       expect(Grim.reap(fixture_path("smoker.pdf")).class).to eq(Grim::Pdf)
     end
