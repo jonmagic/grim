@@ -48,9 +48,18 @@ module Grim
         command_env['PATH'] = "#{File.dirname(@ghostscript_path)}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
       end
 
-      result, status = Open3.capture2e(command_env, command.join(' '))
+      log(command_env, command)
+      result, status = Open3.capture2e(command_env, command.join(" "))
 
       status.success? || raise(UnprocessablePage, result)
+    end
+
+    def log(command_env, command)
+      Grim.logger.debug "Running imagemagick command"
+      if command_env.any?
+        Grim.logger.debug command_env.map {|k,v| "#{k}=#{v}" }.join(" ")
+      end
+      Grim.logger.debug command.join(" ")
     end
   end
 end
