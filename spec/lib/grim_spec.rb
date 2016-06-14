@@ -26,9 +26,27 @@ describe Grim do
     expect(Grim::COLORSPACE).to eq('RGB')
   end
 
-  describe "#reap" do
+  describe ".reap" do
     it "should return an instance of Grim::Pdf" do
       expect(Grim.reap(fixture_path("smoker.pdf")).class).to eq(Grim::Pdf)
+    end
+  end
+
+  describe ".logger=" do
+    it "sets Grim.logger" do
+      original_logger = Grim.logger
+      begin
+        Grim.logger = "foo"
+        expect(Grim.logger).to eq("foo")
+      ensure
+        Grim.logger = original_logger
+      end
+    end
+  end
+
+  describe ".logger" do
+    it "returns a Grim::NullLogger by default" do
+      expect(Grim.logger).to be_instance_of(Grim::NullLogger)
     end
   end
 end
