@@ -51,8 +51,8 @@ module Grim
     #
     def text
       command = [@pdftotext_path, "-enc", "UTF-8", "-f", @number, "-l", @number, Shellwords.escape(@pdf.path), "-"].join(' ')
-      Grim.logger.debug "Running pdftotext command"
-      Grim.logger.debug command
+      Grim.logger.debug { "Running pdftotext command" }
+      Grim.logger.debug { command }
       `#{command}`
     end
   end

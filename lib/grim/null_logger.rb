@@ -1,11 +1,9 @@
 require "logger"
 
 module Grim
-  class NullLogger < ::Logger
-    def initialize(*args)
-    end
-
-    def add(*args, &block)
-    end
+  class NullLogger
+    def initialize(*args); end
+    def debug(*args); end
+    def info(*args); end
   end
 end
