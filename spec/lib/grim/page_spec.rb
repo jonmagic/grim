@@ -53,7 +53,7 @@ describe Grim::Page do
 
     it "should extract tabular data with the -table option" do
       pdf = Grim::Pdf.new(fixture_path("table.pdf"))
-      expect(pdf[0].text(options=["-table"])).to \
+      expect(pdf[0].text(options={flags: ["-table"]})).to \
         include(
         "      Male                                                           979 (85)                  968 (85)\n\n" +
         "      Female                                                         169 (15)                  169 (15)\n")
