@@ -47,11 +47,15 @@ module Grim
     #   pdf[1].text
     #   # => "This is text from slide 2.\n\nAnd even more text from slide 2."
     #
-    #   pdf[1].text(options={flags: ["-table"]})
+    #   pdf[1].text({flags: ["-table"]})
     # Returns a String.
     #
-    def text(options={flags: []})
-      command = [@pdftotext_path, "-enc", "UTF-8", "-f", @number, "-l", @number, options[:flags].join(", "), Shellwords.escape(@pdf.path), "-"].join(' ')
+    def text(options={})
+      flags = options.fetch(:flags, [])
+      command_parts = [@pdftotext_path, "-enc", "UTF-8", "-f", @number, "-l", @number]
+      command_parts += flags if flags.length > 0
+      command_parts += [Shellwords.escape(@pdf.path), "-"]
+      command = command_parts.join(' ')
       Grim.logger.debug { "Running pdftotext command" }
       Grim.logger.debug { command }
       `#{command}`
