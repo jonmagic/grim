@@ -113,7 +113,7 @@ pdf[3].save('/path/to/image.png')
 * [@BobaFaux](https://github.com/BobaFaux)
 * [@Rubikan](https://github.com/Rubikan)
 * [@victormier](https://github.com/victormier)
-* [@philgooch][(https://github.com/philgooch)]
+* [@philgooch](https://github.com/philgooch)
 
 ## License
 
