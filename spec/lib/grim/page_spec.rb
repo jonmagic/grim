@@ -51,6 +51,14 @@ describe Grim::Page do
         eq("Step 1: get someone to print this curve for you to scale, 72” wide\nStep 2: Get a couple 55 gallon drums\n\n\f")
     end
 
+    it "should extract tabular data with the -table option" do
+      pdf = Grim::Pdf.new(fixture_path("table.pdf"))
+      expect(pdf[0].text({flags: ["-table"]})).to \
+        include(
+        "      Male                                                           979 (85)                  968 (85)\n\n" +
+        "      Female                                                         169 (15)                  169 (15)\n")
+    end
+
     it "works with full path to pdftotext" do
       pdftotext_path = `which pdftotext`.chomp
       pdf = Grim::Pdf.new(fixture_path("smoker.pdf"), pdftotext_path: pdftotext_path)

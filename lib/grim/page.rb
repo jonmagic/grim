@@ -40,17 +40,22 @@ module Grim
       Grim.processor.save(@pdf, @index, path, options)
     end
 
-    # Extracts the text from the selected page.
+    # Extracts the text from the selected page, using additional options.
     #
     # For example:
     #
     #   pdf[1].text
     #   # => "This is text from slide 2.\n\nAnd even more text from slide 2."
     #
+    #   pdf[1].text({flags: ["-table"]})
     # Returns a String.
     #
-    def text
-      command = [@pdftotext_path, "-enc", "UTF-8", "-f", @number, "-l", @number, Shellwords.escape(@pdf.path), "-"].join(' ')
+    def text(options={})
+      flags = options.fetch(:flags, [])
+      command_parts = [@pdftotext_path, "-enc", "UTF-8", "-f", @number, "-l", @number]
+      command_parts += flags if flags.length > 0
+      command_parts += [Shellwords.escape(@pdf.path), "-"]
+      command = command_parts.join(' ')
       Grim.logger.debug { "Running pdftotext command" }
       Grim.logger.debug { command }
       `#{command}`
