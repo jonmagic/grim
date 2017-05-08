@@ -124,8 +124,8 @@ describe Grim::ImageMagickProcessor do
       Grim::ImageMagickProcessor.new.save(@pdf, 0, @path1, {:alpha => 'Set'})
       Grim::ImageMagickProcessor.new.save(@pdf, 0, @path2, {:alpha => 'Remove'})
 
-      expect(`convert #{@path1} -verbose info:`.include?("alpha: 8-bit")).to be(true)
-      expect(`convert #{@path2} -verbose info:`.include?("alpha: 1-bit")).to be(true)
+      expect(`convert #{@path1} -verbose info:`.downcase.include?("alpha: 8-bit")).to be(true)
+      expect(`convert #{@path2} -verbose info:`.downcase.include?("alpha")).to be(false)
     end
   end
 end
