@@ -36,7 +36,7 @@ module Grim
       command << "-antialias"
       command << "-render"
       command << "-quality #{quality}"
-      command << "-colorspace #{colorspace}"
+      command << "-colorspace #{colorspace}" unless colorspace.nil?
       command << "-interlace none"
       command << "-density #{density}"
       command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
