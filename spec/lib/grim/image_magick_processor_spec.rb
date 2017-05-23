@@ -128,4 +128,17 @@ describe Grim::ImageMagickProcessor do
       expect(`convert #{@path2} -verbose info:`.downcase.include?("alpha")).to be(false)
     end
   end
+
+  describe "#prepare_command" do
+    before(:each) do
+      @path = tmp_path("to_png_spec.jpg")
+      @pdf  = Grim::Pdf.new(fixture_path("smoker.pdf"))
+    end
+
+    it "removes -colorspace if colorspace option is nil" do
+      processor = Grim::ImageMagickProcessor.new
+      expect(processor.prepare_command(@pdf, 0, @path, {:colorspace => nil}).join(" ")).not_to \
+        match(/-colorspace/)
+    end
+  end
 end
