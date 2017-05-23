@@ -48,7 +48,7 @@ describe Grim::Page do
     it "should return the text from the selected page" do
       pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
       expect(pdf[1].text).to \
-        eq("Step 1: get someone to print this\ncurve for you to scale, 72” wide\n\nStep 2: Get a couple 55 gallon drums\n\n\f")
+        eq("Step 1: get someone to print this curve for you to scale, 72” wide\nStep 2: Get a couple 55 gallon drums\n\n\f")
     end
 
     it "should extract tabular data with the -table option" do
