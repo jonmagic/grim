@@ -23,6 +23,25 @@ module Grim
     end
 
     def save(pdf, index, path, options)
+      command = prepare_command(pdf, index, path, options)
+      command_env = {}
+
+      if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
+        command_env['PATH'] = "#{File.dirname(@ghostscript_path)}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
+      end
+
+      Grim.logger.debug { "Running imagemagick command" }
+      if command_env.any?
+        Grim.logger.debug { command_env.map {|k,v| "#{k}=#{v}" }.join(" ") }
+      end
+      Grim.logger.debug { command.join(" ") }
+
+      result, status = Open3.capture2e(command_env, command.join(" "))
+
+      status.success? || raise(UnprocessablePage, result)
+    end
+
+    def prepare_command(pdf, index, path, options)
       width      = options.fetch(:width,   Grim::WIDTH)
       density    = options.fetch(:density, Grim::DENSITY)
       quality    = options.fetch(:quality, Grim::QUALITY)
@@ -42,21 +61,7 @@ module Grim
       command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
       command << path
 
-      command_env = {}
-
-      if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
-        command_env['PATH'] = "#{File.dirname(@ghostscript_path)}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
-      end
-
-      Grim.logger.debug { "Running imagemagick command" }
-      if command_env.any?
-        Grim.logger.debug { command_env.map {|k,v| "#{k}=#{v}" }.join(" ") }
-      end
-      Grim.logger.debug { command.join(" ") }
-
-      result, status = Open3.capture2e(command_env, command.join(" "))
-
-      status.success? || raise(UnprocessablePage, result)
+      command
     end
   end
 end
