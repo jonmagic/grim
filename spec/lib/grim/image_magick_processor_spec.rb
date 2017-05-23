@@ -104,7 +104,7 @@ describe Grim::ImageMagickProcessor do
 
     it "should use colorspace" do
       Grim::ImageMagickProcessor.new.save(@pdf, 0, @path1, {:colorspace => 'RGB'})
-      Grim::ImageMagickProcessor.new.save(@pdf, 0, @path2, {:colorspace => 'sRGB'})
+      Grim::ImageMagickProcessor.new.save(@pdf, 0, @path2, {:colorspace => 'CMYK'})
 
       file1_size = File.stat(@path1).size
       file2_size = File.stat(@path2).size
@@ -112,20 +112,20 @@ describe Grim::ImageMagickProcessor do
       expect(file1_size).to_not eq(file2_size)
     end
   end
-  
+
   describe "#save with alpha option" do
     before(:each) do
       @path1 = tmp_path("to_png_spec-1.png")
       @path2 = tmp_path("to_png_spec-2.png")
       @pdf  = Grim::Pdf.new(fixture_path("remove_alpha.pdf"))
     end
-    
+
     it "should use alpha" do
       Grim::ImageMagickProcessor.new.save(@pdf, 0, @path1, {:alpha => 'Set'})
       Grim::ImageMagickProcessor.new.save(@pdf, 0, @path2, {:alpha => 'Remove'})
 
-      expect(`convert #{@path1} -verbose info:`.include?("alpha: 8-bit")).to be(true)
-      expect(`convert #{@path2} -verbose info:`.include?("alpha: 1-bit")).to be(true)
+      expect(`convert #{@path1} -verbose info:`.downcase.include?("alpha: 8-bit")).to be(true)
+      expect(`convert #{@path2} -verbose info:`.downcase.include?("alpha")).to be(false)
     end
   end
 end
