@@ -23,25 +23,7 @@ module Grim
     end
 
     def save(pdf, index, path, options)
-      width      = options.fetch(:width,   Grim::WIDTH)
-      density    = options.fetch(:density, Grim::DENSITY)
-      quality    = options.fetch(:quality, Grim::QUALITY)
-      colorspace = options.fetch(:colorspace, Grim::COLORSPACE)
-      alpha      = options[:alpha]
-
-      command = []
-      command << @imagemagick_path
-      command << "-resize #{width}"
-      command << "-alpha #{alpha}" if alpha
-      command << "-antialias"
-      command << "-render"
-      command << "-quality #{quality}"
-      command << "-colorspace #{colorspace}"
-      command << "-interlace none"
-      command << "-density #{density}"
-      command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
-      command << path
-
+      command = prepare_command(pdf, index, path, options)
       command_env = {}
 
       if @ghostscript_path && @ghostscript_path != DefaultGhostScriptPath
@@ -57,6 +39,29 @@ module Grim
       result, status = Open3.capture2e(command_env, command.join(" "))
 
       status.success? || raise(UnprocessablePage, result)
+    end
+
+    def prepare_command(pdf, index, path, options)
+      width      = options.fetch(:width,   Grim::WIDTH)
+      density    = options.fetch(:density, Grim::DENSITY)
+      quality    = options.fetch(:quality, Grim::QUALITY)
+      colorspace = options.fetch(:colorspace, Grim::COLORSPACE)
+      alpha      = options[:alpha]
+
+      command = []
+      command << @imagemagick_path
+      command << "-resize #{width}"
+      command << "-alpha #{alpha}" if alpha
+      command << "-antialias"
+      command << "-render"
+      command << "-quality #{quality}"
+      command << "-colorspace #{colorspace}" unless colorspace.nil?
+      command << "-interlace none"
+      command << "-density #{density}"
+      command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
+      command << path
+
+      command
     end
   end
 end
