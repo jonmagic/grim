@@ -101,8 +101,8 @@ pdf[3].save('/path/to/image.png')
 
 ## Reference
 
-* [jonmagic.com: Grim](http://jonmagic.com/blog/archives/2011/09/06/grim/)
-* [jonmagic.com: Grim MultiProcessor](http://jonmagic.com/blog/archives/2011/10/06/grim-multiprocessor-to-the-rescue/)
+* [jonmagic.com: Grim](http://theprogrammingbutler.com/blog/archives/2011/09/06/grim/)
+* [jonmagic.com: Grim MultiProcessor](http://theprogrammingbutler.com/blog/archives/2011/10/06/grim-multiprocessor-to-the-rescue/)
 
 ## Contributors
 
