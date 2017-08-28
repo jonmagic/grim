@@ -50,6 +50,20 @@ describe Grim::ImageMagickProcessor do
     end
   end
 
+  describe "#save to path includes shell meta character" do
+    before(:all) do
+      @path = tmp_path("to_png_spec(1).png")
+      @pdf  = Grim::Pdf.new(fixture_path("smoker.pdf"))
+
+      @processor = Grim::ImageMagickProcessor.new
+    end
+
+    it "should success" do
+      @processor.save(@pdf, 0, @path, {})
+      expect(File.exist?(@path)).to be(true)
+    end
+  end
+
   describe "#save with width option" do
     before(:each) do
       @path = tmp_path("to_png_spec.png")
