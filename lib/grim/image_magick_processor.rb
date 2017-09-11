@@ -59,7 +59,7 @@ module Grim
       command << "-interlace none"
       command << "-density #{density}"
       command << "#{Shellwords.shellescape(pdf.path)}[#{index}]"
-      command << path
+      command << Shellwords.shellescape(path)
 
       command
     end
