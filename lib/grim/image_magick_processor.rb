@@ -50,7 +50,7 @@ module Grim
 
       command = []
       command << @imagemagick_path
-      command << "-resize #{width}"
+      command << "-resize #{width}" if width
       command << "-alpha #{alpha}" if alpha
       command << "-antialias"
       command << "-render"
