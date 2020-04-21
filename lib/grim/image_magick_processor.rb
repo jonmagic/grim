@@ -15,7 +15,7 @@ module Grim
     end
 
     def count(path)
-      command = [@ghostscript_path, "-dNODISPLAY", "-q",
+      command = [@ghostscript_path, "-dNODISPLAY", "-dNOSAFER", "-q",
         "-sFile=#{Shellwords.shellescape(path)}",
         File.expand_path('../../../lib/pdf_info.ps', __FILE__)]
       result = `#{command.join(' ')}`
