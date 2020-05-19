@@ -116,6 +116,7 @@ pdf[3].save('/path/to/image.png')
 * [@philgooch](https://github.com/philgooch)
 * [@adamcrown](https://github.com/adamcrown)
 * [@fujimura](https://github.com/fujimura)
+* [@JamesPaden](https://github.com/JamesPaden)
 
 ## License
 
