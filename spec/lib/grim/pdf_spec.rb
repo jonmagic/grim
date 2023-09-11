@@ -3,6 +3,12 @@ require 'spec_helper'
 
 describe Grim::Pdf do
 
+  it "should not raise NoMethodErrod for File:class " do 
+    expect{
+      pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
+    }.not_to raise_error(NoMethodError)
+  end
+
   it "should have a path" do
     pdf = Grim::Pdf.new(fixture_path("smoker.pdf"))
     expect(pdf.path).to eq(fixture_path("smoker.pdf"))
