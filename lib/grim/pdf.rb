@@ -15,7 +15,7 @@ module Grim
     #                             (default: "pdftotext").
     #
     def initialize(path, options = {})
-      raise Grim::PdfNotFound unless File.exists?(path)
+      raise Grim::PdfNotFound unless File.exist?(path)
       @path = path
       @pdftotext_path = options[:pdftotext_path] || 'pdftotext'
     end
